@@ -8,7 +8,6 @@ class Item:
         self.utility = utility
         self.quantity = quantity
         self.n1utility = n1utility
-        self.we_va_relation = utility / weight
         Item.ekstensja.append(self)
 
     def __str__(self):
@@ -21,6 +20,12 @@ class Backpack:
         self.capacity = capacity
         self.current_weight = 0
         self.items = dict()
+
+    def asses_efficiency(self, item):
+        if item not in self.items:
+            return item.utility / item.weight
+        else:
+            return item.utility * item.n1utility ** self.items[item]
 
 
 def load_file(source):
@@ -37,11 +42,17 @@ def load_file(source):
 load_file("boat.txt")
 
 print("items on boat")
-for i in sorted(Item.ekstensja, key=lambda x: x.we_va_relation, reverse=True):
+for i in sorted(Item.ekstensja, key=lambda x: x.utility, reverse=True):
     print(i)
 
-# backpack = Backpack(12)
-#
+backpack = Backpack(12)
+
+
+for item in Item.ekstensja:
+    print(f'{item}, efficiency of item: {backpack.asses_efficiency(item)}')
+
+
+
 # idx = 0
 # freespace = True
 # Item.ekstensja.sort(key=lambda x: x.we_va_relation, reverse=True)

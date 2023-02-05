@@ -45,40 +45,34 @@ print("items on boat")
 for i in sorted(Item.ekstensja, key=lambda x: x.utility, reverse=True):
     print(i)
 
-backpack = Backpack(12)
+backpack = Backpack(10)
 
 
-for item in Item.ekstensja:
-    print(f'{item}, efficiency of item: {backpack.asses_efficiency(item)}')
+freespace = True
+while freespace:
+    freespace = False
+    tmp_hierarchy = []
+    for item in Item.ekstensja:
+        if item.weight + backpack.current_weight <= backpack.capacity and item.quantity > 0:
+            tmp_hierarchy.append([item, backpack.asses_efficiency(item)])
+            freespace = True
+    tmp_hierarchy.sort(key=lambda x: x[1], reverse=True)
+    if tmp_hierarchy:
+        if tmp_hierarchy[0][0] in backpack.items:
+            backpack.items[tmp_hierarchy[0][0]] += 1
+        else:
+            backpack.items[tmp_hierarchy[0][0]] = 1
+        tmp_hierarchy[0][0].quantity -= 1
+        backpack.current_weight += tmp_hierarchy[0][0].weight
+        print(f'adding to backpack: {tmp_hierarchy[0][0]}; current weight {backpack.current_weight}, efficiency: {tmp_hierarchy[0][1]}')
 
 
+print("Items in backpack")
+print(f"weight of backpack {backpack.current_weight}")
+for i in backpack.items:
+    print(f'{i}, taken: {backpack.items[i]}')
 
-# idx = 0
-# freespace = True
-# Item.ekstensja.sort(key=lambda x: x.we_va_relation, reverse=True)
-#
-# while freespace:
-#     while idx < len(Item.ekstensja):
-#         if backpack.current_weight + Item.ekstensja[idx].weight <= backpack.capacity and Item.ekstensja[idx].quantity > 0:
-#             if Item.ekstensja[idx] in backpack.items:
-#                 backpack.items[Item.ekstensja[idx]] += 1
-#             else:
-#                 backpack.items[Item.ekstensja[idx]] = 1
-#             Item.ekstensja[idx].quantity -= 1
-#             backpack.current_weight += Item.ekstensja[idx].weight
-#             print(f'adding to backpack: {Item.ekstensja[idx]}; '
-#                   f'current weight {backpack.current_weight}, '
-#                   f'value/kg: {Item.ekstensja[idx].we_va_relation}')
-#             idx -= 1
-#         idx += 1
-#     freespace = False
-#
-# print("Items in backpack")
-# print(f"weight of backpack {backpack.current_weight}")
-# for i in backpack.items:
-#     print(f'{i}, stolen: {backpack.items[i]}')
-#
-# print("Left in store")
-# for i in sorted(Item.ekstensja, key=lambda x: x.value, reverse=False):
-#     if i.quantity > 0:
-#         print(i)
+print("Left on boat")
+for i in sorted(Item.ekstensja, key=lambda x: x.utility, reverse=False):
+    if i.quantity > 0:
+        print(i)

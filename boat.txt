@@ -12,3 +12,4 @@ spiwor;2;8;2;0.3
 namiot;4;8;1;0.3
 gra planszowa;2;2;4;0.3
 radioplawa;3;10;1;0.3
+lyzwy;2;2;1;0.75

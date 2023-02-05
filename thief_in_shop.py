@@ -1,4 +1,4 @@
-class Item():
+class Item:
 
     ekstensja = list()
 
@@ -10,9 +10,10 @@ class Item():
         Item.ekstensja.append(self)
 
     def __str__(self):
-        return f'name: {self.name}; value: {self.value}'
+        return f'name: {self.name}; weight: {self.weight}; value: {self.value}'
 
-class Backpack():
+
+class Backpack:
 
     def __init__(self, capacity):
         self.capacity = capacity
@@ -34,5 +35,5 @@ def load_file(source):
 load_file("shop.txt")
 
 print("items in shop")
-for i in Item.ekstensja:
+for i in sorted(Item.ekstensja, key=lambda x: x.value, reverse=False):
     print(i)

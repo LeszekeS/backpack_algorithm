@@ -1,0 +1,14 @@
+name;weight;utility;quantity;n+1 utility
+pistolet do rac;1;10;2;0.2
+dodatkowe race;0.3;10;10;0.8
+lina;1;7;30;0.6
+krzesiwo;0.3;9;1;0.5
+zagiel;2;6;10;0.2
+haczyk na ryby;0.03;8;3;0.9
+zylka;0.1;8;5;0.7
+noz;0.5;9;3;0.6
+toporek;1.5;7;2;0.5
+spiwor;2;8;2;0.3
+namiot;4;8;1;0.3
+gra planszowa;2;2;4;0.3
+radioplawa;3;10;1;0.3

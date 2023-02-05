@@ -34,17 +34,25 @@ def load_file(source):
 
 load_file("shop.txt")
 
-backpack = Backpack(12)
+print("items in shop")
+for i in sorted(Item.ekstensja, key=lambda x: x.value, reverse=False):
+    print(i)
+
+backpack = Backpack(10)
 
 for i in sorted(Item.ekstensja, key=lambda x: x.we_va_relation, reverse=True):
     if backpack.current_weight + i.weight <= backpack.capacity:
         backpack.items.append(i)
         backpack.current_weight += i.weight
         Item.ekstensja.remove(i)
-        print(f'adding to backpack: {i}, {i.we_va_relation}')
+        print(f'adding to backpack: {i}, value/kg: {i.we_va_relation}')
 
 
+print("Items in backpack")
+print(f"weight of backpack {backpack.current_weight}")
+for i in backpack.items:
+    print(i)
 
-print("items in shop")
+print("Left in shop")
 for i in sorted(Item.ekstensja, key=lambda x: x.value, reverse=False):
     print(i)

@@ -35,11 +35,11 @@ def load_file(source):
 
 load_file("store.txt")
 
-print("items in shop")
-for i in sorted(Item.ekstensja, key=lambda x: x.value, reverse=False):
+print("items in store")
+for i in sorted(Item.ekstensja, key=lambda x: x.we_va_relation, reverse=True):
     print(i)
 
-backpack = Backpack(10)
+backpack = Backpack(12)
 
 idx = 0
 freespace = True
@@ -50,23 +50,23 @@ while freespace:
         if backpack.current_weight + Item.ekstensja[idx].weight <= backpack.capacity and Item.ekstensja[idx].quantity > 0:
             if Item.ekstensja[idx] in backpack.items:
                 backpack.items[Item.ekstensja[idx]] += 1
-                Item.ekstensja[idx].quantity -= 1
-                backpack.current_weight += Item.ekstensja[idx].weight
-                print(f'adding to backpack: {Item.ekstensja[idx]}; current weight {backpack.current_weight}, value/kg: {Item.ekstensja[idx].we_va_relation}')
             else:
                 backpack.items[Item.ekstensja[idx]] = 1
-                Item.ekstensja[idx].quantity -= 1
-                backpack.current_weight += Item.ekstensja[idx].weight
-                print(f'adding to backpack: {Item.ekstensja[idx]}; current weight {backpack.current_weight}, value/kg: {Item.ekstensja[idx].we_va_relation}')
+            Item.ekstensja[idx].quantity -= 1
+            backpack.current_weight += Item.ekstensja[idx].weight
+            print(f'adding to backpack: {Item.ekstensja[idx]}; '
+                  f'current weight {backpack.current_weight}, '
+                  f'value/kg: {Item.ekstensja[idx].we_va_relation}')
             idx -= 1
         idx += 1
     freespace = False
-#
-# print("Items in backpack")
-# print(f"weight of backpack {backpack.current_weight}")
-# for i in backpack.items:
-#     print(i)
-#
-# print("Left in shop")
-# for i in sorted(Item.ekstensja, key=lambda x: x.value, reverse=False):
-#     print(i)
+
+print("Items in backpack")
+print(f"weight of backpack {backpack.current_weight}")
+for i in backpack.items:
+    print(f'{i}, stolen: {backpack.items[i]}')
+
+print("Left in store")
+for i in sorted(Item.ekstensja, key=lambda x: x.value, reverse=False):
+    if i.quantity > 0:
+        print(i)
